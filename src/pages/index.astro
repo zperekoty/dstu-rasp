@@ -1,0 +1,56 @@
+---
+import Header from "../components/Header.astro";
+import GroupsList from "../components/GroupsList.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Расписание ДГТУ</title>
+    <style>
+      *,
+      *::after,
+      *::before {
+        font-family: "Roboto", sans-serif;
+      }
+    </style>
+    <script>
+      const themeSaved = localStorage.getItem("theme");
+
+      if (themeSaved) {
+        document.documentElement.classList.add(
+          themeSaved === "dark" ? "dark" : "",
+        );
+      } else {
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+
+        document.documentElement.classList.add(prefersDark ? "dark" : "");
+      }
+
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (e) => {
+          if (!localStorage.getItem("theme")) {
+            document.documentElement.classList.add(e.matches ? "dark" : "");
+          }
+        });
+    </script>
+  </head>
+  <body
+    class="bg-[#F6F8FF] dark:bg-[#272D2D] selection:bg-[#23CE6B] dark:selection:bg-[#FFB800]"
+  >
+    <Header />
+    <GroupsList />
+    <Footer />
+  </body>
+</html>

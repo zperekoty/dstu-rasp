@@ -1,0 +1,117 @@
+---
+import GitHub from "../svg/GitHub.astro";
+import Sun from "../svg/Sun.astro";
+import Moon from "../svg/Moon.astro";
+---
+
+<header
+  class="flex justify-center items-center py-[30px] px-[20px] lg:py-[40px] lg:px-[80px] sticky top-0"
+>
+  <div
+    class="w-full flex justify-between items-center py-[15px] px-[20px] lg:py-[20px] rounded-full lg:px-[30px] bg-gradient-to-r from-[#23CE6B] via-[#F9A03F] to-[#FFB800]"
+  >
+    <div class="flex justify-center items-center">
+      <a
+        href="https://github.com/zperekoty"
+        target="_blank"
+        class="flex justify-center items-center p-3 rounded-lg bg-none transition-all ease-in-out duration-200 hover:bg-white dark:hover:bg-black"
+        ><GitHub classes="fill-[#272D2D] dark:fill-[#F6F8FF]" />
+        <span
+          class="text-sm lg:text-base ml-2 font-medium text-[#272D2D] dark:text-[#F6F8FF]"
+          >zperekoty</span
+        >
+      </a>
+    </div>
+
+    <div class="flex justify-center items-center gap-2">
+      <button
+        id="theme-switcher"
+        class="flex justify-center items-center p-3 rounded-[50%] bg-none hover:bg-white dark:hover:bg-black transition-all ease-in-out duration-200"
+      >
+        <Sun
+          id="switcher-sun"
+          classes="fill-[#272d2d] dark:fill-[#F6F8FF] hidden"
+        />
+        <Moon
+          id="switcher-moon"
+          classes="fill-[#272d2d] dark:fill-[#F6F8FF] hidden"
+        />
+      </button>
+
+      <a
+        href="https://github.com/zperekoty/dstu-rasp"
+        target="_blank"
+        class="flex justify-center items-center p-3 bg-none transition-[background-color] ease-in-out duration-200 hover:bg-white dark:hover:bg-black text-sm lg:text-base text-[#272d2d] dark:text-[#F6F8FF] rounded-lg"
+        ><GitHub classes="fill-[#272d2d] dark:fill-[#F6F8FF] mr-2" /> SOURCE</a
+      >
+    </div>
+  </div>
+
+  <script>
+    const themeSwitcher = document.getElementById("theme-switcher");
+    const sun = document.getElementById("switcher-sun");
+    const moon = document.getElementById("switcher-moon");
+
+    updateIcon();
+
+    themeSwitcher.addEventListener("click", () => {
+      switchTheme(), updateIcon();
+    });
+
+    function switchTheme() {
+      const savedTheme = localStorage.getItem("theme");
+      const currentTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "dark"
+        : "light";
+
+      if (savedTheme) {
+        if (savedTheme === "dark") {
+          document.documentElement.classList.remove("dark");
+
+          localStorage.setItem("theme", "light");
+        } else {
+          document.documentElement.classList.add("dark");
+
+          localStorage.setItem("theme", "dark");
+        }
+      } else {
+        if (currentTheme === "dark") {
+          document.documentElement.classList.remove("dark");
+
+          localStorage.setItem("theme", "light");
+        } else {
+          document.documentElement.classList.add("dark");
+
+          localStorage.setItem("theme", "dark");
+        }
+      }
+    }
+
+    function updateIcon() {
+      const savedTheme = localStorage.getItem("theme");
+      const currentTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "dark"
+        : "light";
+
+      if (savedTheme) {
+        if (savedTheme === "dark") {
+          moon.classList.add("hidden");
+          sun.classList.remove("hidden");
+        } else {
+          sun.classList.add("hidden");
+          moon.classList.remove("hidden");
+        }
+      } else {
+        if (currentTheme === "dark") {
+          moon.classList.add("hidden");
+          sun.classList.remove("hidden");
+        } else {
+          sun.classList.add("hidden");
+          moon.classList.remove("hidden");
+        }
+      }
+    }
+  </script>
+</header>
