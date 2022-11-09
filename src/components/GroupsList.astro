@@ -64,9 +64,21 @@
   button.addEventListener("click", () => {
     const groupName = input.value.toUpperCase();
 
+    if (groupName.trim() === "") {
+      input.style.borderColor = "red";
+
+      return setTimeout(() => {
+        input.style.border = "";
+      }, 1500);
+    }
+
     let filteredGroups;
 
     filteredGroups = groups.filter((group) => group.name.includes(groupName));
+
+    if (filteredGroups.length === 0) {
+      return (list.innerHTML = `<div class="flex justify-center items-center"><span class="text-xl text-[#272D2D] dark:text-[#F6F8FF]">Группа ${groupName} не найдена</span></div>`);
+    }
 
     list.innerHTML = "";
     list.classList.remove("hidden");
