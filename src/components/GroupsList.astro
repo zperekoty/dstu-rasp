@@ -58,7 +58,7 @@
 
   input.addEventListener("input", (e) => {
     const value = e.target.value;
-    e.target.value = value.replace(/[^А-Яа-яA-Za-z0-9]+/, "");
+    e.target.value = value.replace(/[^А-Яа-яA-Za-z1-9]+/, "");
   });
 
   button.addEventListener("click", () => {
